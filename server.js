@@ -16,13 +16,12 @@ var pusher = new Pusher({
 });
 
 /* Spawn a new Pokémon to Pusher API */
-
-setInterval(function() { 
+function spawnPokemon() {
   var pokemonId = Math.floor(Math.random()*151) + 1;
 
   /* Random Coordinates */
-  var spawnLatitude = '-21.' + Math.floor(Math.random()*999999);
-  var spawnLongitude = '-43.'  + Math.floor(Math.random()*999999);
+  var spawnLatitude = '-22.90' + Math.floor(Math.random() * 999999);
+  var spawnLongitude = '-43.18' + Math.floor(Math.random() * 999999);
 
   pusher.trigger('map', 'spawn', {
     'id': pokemonId,
@@ -33,8 +32,12 @@ setInterval(function() {
   /* Server Real Time Log View */
   console.log('--------------------------------------')
   console.log('=> Pokémon No: '+pokemonId+' has spawned!');
-  console.log(spawnLatitude);
-  console.log(spawnLongitude);
+  console.log('=> ' +spawnLatitude);
+  console.log('=> ' +spawnLongitude);
+}
+
+setInterval(function() { 
+  spawnPokemon();
 }, 10000);
 
 /* Starting App on http://localhost:3000 */

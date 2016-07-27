@@ -1,24 +1,59 @@
 angular.module('pokemonGo')
-.controller('mapCtrl', function mapCtrl($scope, $pusher, $http, PUSHER_KEY) {
+.filter('pokemonNumber', function() {
+  return function(input) {
+    var pokemon_number = input.toString();
+    if (pokemon_number.length == 1) {
+      return '00' + pokemon_number;
+    } else if(pokemon_number.length == 2) {
+      return '0' + pokemon_number;
+    } else {
+      return pokemon_number;
+    }
+  }
+})
+
+.controller('mapCtrl', function mapCtrl(
+  $scope, 
+  $pusher, 
+  $http, 
+  NgMap, 
+  PUSHER_KEY
+  ) {
   /* Set wave as an object to use .push() method */
   $scope.wave = [];
 
-  /* Generate Google Maps */
-  $scope.map = { center: { latitude: -22.9083, longitude: -43.1971 }, zoom: 8, markers: [] };
+  /* Create map $scope */
+  NgMap.getMap().then(function(map) {
+    $scope.map = map;
+  });
 
-  /* Add Pokémon Spawn Marker */
+  /* Spawn Pokémons in the Map */
+  $scope.markers = [];
   function spawnPokemonMap(pokemon) {
     var marker = {
-      id: Date.now(),
+      id: 'marker' + Date.now(),
+      pokemonId: pokemon.id,
       coords: {
         latitude: pokemon.latitude,
         longitude: pokemon.longitude
       },
-      options: {
-        icon: 'http://sprites.pokecheck.org/icon/'+pokemon.id+'.png'
-      }
+      position: [pokemon.latitude, pokemon.longitude],
+      icon: 'http://sprites.pokecheck.org/icon/'+pokemon.id+'.png'
     };
-    $scope.map.markers.push(marker);
+    $scope.markers.push(marker);
+  };
+
+  /* Display Pokémon Info Window */
+  $scope.displayPokemonInfo = function(e, marker) {
+    $scope.pokemonMarker = null;
+
+    /*$http.get('http://pokeapi.co/api/v1/pokemon/' + marker.pokemonId).
+    success(function(data) {
+      $scope.pokemonMarker = data;
+    });*/
+    $scope.pokemonMarker = marker.pokemonId;
+    console.log($scope.pokemonMarker);
+    $scope.map.showInfoWindow('pokemonInfo', marker.id);
   };
 
   /* Pusher App Config for the Frontend */
