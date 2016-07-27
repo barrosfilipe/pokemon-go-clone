@@ -52,7 +52,6 @@ angular.module('pokemonGo')
       $scope.pokemonMarker = data;
     });*/
     $scope.pokemonMarker = marker.pokemonId;
-    console.log($scope.pokemonMarker);
     $scope.map.showInfoWindow('pokemonInfo', marker.id);
   };
 
