@@ -1,4 +1,5 @@
 angular.module('pokemonGo')
+
 .filter('pokemonNumber', function() {
   return function(input) {
     var pokemon_number = input.toString();
@@ -13,11 +14,11 @@ angular.module('pokemonGo')
 })
 
 .controller('mapCtrl', function mapCtrl(
-  $scope, 
-  $pusher, 
-  $http, 
-  NgMap, 
-  PUSHER_KEY
+    $scope, 
+    $pusher, 
+    $http, 
+    NgMap, 
+    PUSHER_KEY
   ) {
   /* Set wave as an object to use .push() method */
   $scope.wave = [];
@@ -45,12 +46,9 @@ angular.module('pokemonGo')
 
   /* Display Pokémon Info Window */
   $scope.displayPokemonInfo = function(e, marker) {
+    /* Reset Market Before Call Info */
     $scope.pokemonMarker = null;
 
-    /*$http.get('http://pokeapi.co/api/v1/pokemon/' + marker.pokemonId).
-    success(function(data) {
-      $scope.pokemonMarker = data;
-    });*/
     $scope.pokemonMarker = marker.pokemonId;
     $scope.map.showInfoWindow('pokemonInfo', marker.id);
   };
