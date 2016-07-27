@@ -17,6 +17,7 @@
   "dependencies": {
     "angular": "^1.5.8",
     "angular-ui-router": "^0.3.1",
-    "pusher-angular": "^0.1.9"
+    "pusher-angular": "^0.1.9",
+    "angular-google-maps": "^2.3.3"
   }
 }
