@@ -18,8 +18,8 @@
        </div>
      </center>
    </info-window>
-
-   <!-- Pokémon Marker in the Map -->
+   
+   <!-- Pokémon Marker on the Map (MongoDB) -->
    <marker id="{{marker.id}}" ng-repeat="marker in markers" icon="{{marker.icon}}" position="{{marker.position}}" on-click="displayPokemonInfo(marker)"></marker>
  </ng-map>
 </div>

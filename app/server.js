@@ -1,11 +1,25 @@
 /* Initializers */
 var express = require('express');
-var app = express();
+var bodyParser = require('body-parser');
 var path = require('path');
+var app = express();
 var Pusher = require('pusher');
 
-/* Frontend directory */
-app.use('/', express.static(__dirname + '/frontend'));
+/* MongoDB Config */
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/waves');
+
+/* Models */
+var Wave = require('./models/waveModel');
+
+/* Routes */
+var routes = require('./routes/routes.js');
+
+/* Express Configs */
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/', express.static(path.join(__dirname, '../frontend')));
+app.use('/api', routes);
 
 /* Pusher App Config */
 var pusher = new Pusher({
@@ -29,6 +43,23 @@ function spawnPokemon() {
     'longitude': spawnLongitude
   });
 
+  /* Save to MongoDB */
+  var wave = new Wave();
+  wave.id = 'markerdb' + Date.now();
+  wave.pokemonId = pokemonId;
+  wave.coords = [{
+    latitude: spawnLatitude,
+    longitude: spawnLongitude
+  }];
+  wave.position = [spawnLatitude, spawnLongitude];
+  wave.icon = 'http://sprites.pokecheck.org/icon/'+pokemonId+'.png';
+
+  wave.save(function(err) {
+    if (!err) { 
+      console.log('=> Successfully saved to MongoDB');
+    }
+  });
+
   /* Server Real Time Log View */
   console.log('--------------------------------------')
   console.log('=> Pokémon No: '+pokemonId+' has spawned!');
@@ -37,10 +68,12 @@ function spawnPokemon() {
 }
 
 setInterval(function() { 
-  spawnPokemon();
+  //spawnPokemon();
 }, 10000);
 
 /* Starting App on http://localhost:3000 */
 app.listen(3000, function () {
   console.log('Go to http://localhost:3000');
 });
+
+module.exports = app;

@@ -14,35 +14,35 @@ angular.module('pokemonGo')
 })
 
 .controller('mapCtrl', function mapCtrl(
-    $scope, 
-    $pusher, 
-    $http, 
-    NgMap, 
-    PUSHER_KEY
+  $scope,
+  $pusher,
+  $http,
+  $timeout,
+  NgMap,
+  PUSHER_KEY
   ) {
-  /* Set wave as an object to use .push() method */
-  $scope.wave = [];
+  /* Set markers as an object to use .push() method */
+  $scope.markers = [];
 
   /* Create map $scope */
   NgMap.getMap().then(function(map) {
     $scope.map = map;
   });
 
-  /* Spawn Pokémons in the Map */
-  $scope.markers = [];
-  function spawnPokemonMap(pokemon) {
-    var marker = {
-      id: 'marker' + Date.now(),
-      pokemonId: pokemon.id,
-      coords: {
-        latitude: pokemon.latitude,
-        longitude: pokemon.longitude
-      },
-      position: [pokemon.latitude, pokemon.longitude],
-      icon: 'http://sprites.pokecheck.org/icon/'+pokemon.id+'.png'
-    };
-    $scope.markers.push(marker);
+  /* Spanw Pokémons on the Map (MongoDB) */
+  var spawnPokemonMapDB = function() {
+    $http.get('/api/wave').
+    success(function(data) {
+      angular.forEach(data, function(marker) {
+        if ($scope.markers.indexOf(marker) == -1) {
+          $scope.markers.push(marker);
+        };
+      });
+    });
   };
+
+  /* First Pokémon Spawn */
+  spawnPokemonMapDB();
 
   /* Display Pokémon Info Window */
   $scope.displayPokemonInfo = function(e, marker) {
@@ -61,7 +61,7 @@ angular.module('pokemonGo')
   /* Listen to the channel and retrieve an action */
   var pokemonName;
   map.bind('spawn', function(pokemon) {
-    $scope.wave.push(pokemon);
-    spawnPokemonMap(pokemon)
+    //spawnPokemonMap(pokemon);
+    spawnPokemonMapDB();
   });
 });
