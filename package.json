@@ -4,7 +4,7 @@
   "description": "Pokémon GO Clone Using NodeJS, AngularJS, Pusher, MongoDB and Google Maps",
   "main": "server.js",
   "scripts": {
-    "start": "node app/server.js",
+    "start": "./node_modules/nodemon/bin/nodemon.js app/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Filipe Barros",
@@ -17,6 +17,7 @@
     "pusher": "^1.3.0"
   },
   "devDependencies": {
-    "bower": "^1.7.9"
+    "bower": "^1.7.9",
+    "nodemon": "^1.10.0"
   }
 }

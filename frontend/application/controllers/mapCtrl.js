@@ -17,10 +17,9 @@ angular.module('pokemonGo')
   $scope,
   $pusher,
   $http,
-  $timeout,
   NgMap,
-  PUSHER_KEY,
-  lodash
+  lodash,
+  PUSHER_KEY
   ) {
   /* Set markers as an object to use .push() method */
   $scope.markers = [];
