@@ -11,7 +11,7 @@
   - [Lodash](https://lodash.com)
 
 ### Getting Started
-Requires [Node.js](https://nodejs.org) and [MongoDB](https://www.mongodb.com) installed on your machine.
+Requires [Node.js](https://nodejs.org) and [MongoDB](https://www.mongodb.com) installed.
 
 #### Follow the steps below
 1. Type `cd pokemon-go-clone` , `npm install` and `bower install`
