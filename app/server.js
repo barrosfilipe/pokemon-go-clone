@@ -5,6 +5,9 @@ var path = require('path');
 var app = express();
 var Pusher = require('pusher');
 
+/* Ínit Pokémon Get Info */
+const pokemonGetInfo = require('pokemon');
+
 /* MongoDB Config */
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/waves');
@@ -47,6 +50,7 @@ function spawnPokemon() {
   var wave = new Wave();
   wave.id = 'marker' + Date.now();
   wave.pokemonId = pokemonId;
+  wave.pokemonName = pokemonGetInfo.getName(pokemonId);
   wave.coords = [{
     latitude: spawnLatitude,
     longitude: spawnLongitude

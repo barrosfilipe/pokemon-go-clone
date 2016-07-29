@@ -1,15 +1,11 @@
 angular.module('pokemonGo')
 
-.filter('pokemonNumber', function() {
+.filter('pokemonReplace', function() {
   return function(input) {
-    var pokemon_number = input.toString();
-    if (pokemon_number.length == 1) {
-      return '00' + pokemon_number;
-    } else if(pokemon_number.length == 2) {
-      return '0' + pokemon_number;
-    } else {
-      return pokemon_number;
-    };
+    return input
+      .replace("♂", "m")
+      .replace("♀", "f")
+      .replace("’", "");
   };
 })
 
@@ -55,8 +51,8 @@ angular.module('pokemonGo')
   /* First Pokémon Spawn */
   spawnPokemonMapDB();
 
-  /* Caught Pokemon Function */
-  $scope.caughtPokemon = function(pokemonId) {
+  /* Catch Pokemon Function */
+  $scope.catchPokemon = function(pokemonId) {
     console.log(pokemonId);
   };
 
@@ -64,8 +60,8 @@ angular.module('pokemonGo')
   $scope.displayPokemonInfo = function(e, marker) {
     /* Reset Market Before Call Info */
     $scope.pokemonMarker = null;
-
     $scope.pokemonMarker = marker.pokemonId;
+    $scope.pokemonName = marker.pokemonName;
     $scope.map.showInfoWindow('pokemonInfo', marker.id);
   };
 

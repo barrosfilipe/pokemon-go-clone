@@ -13,20 +13,21 @@ ng-map {
   width: 180px!important;
 }
 
-.pokemonlabel {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 100px;
+.pokemonName {
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  border-bottom: 3px solid #70ebb5;
 }
 
-.caught {
+.catch {
   cursor: pointer;
   border: 0; 
   outline: 0;
   background: transparent
 }
 
-.caught_text {
+.catch_text {
   color: #00aeff;
   font-family: 'Titillium Web', sans-serif;
   font-weight: 600;
