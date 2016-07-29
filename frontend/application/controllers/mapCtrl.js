@@ -9,8 +9,8 @@ angular.module('pokemonGo')
       return '0' + pokemon_number;
     } else {
       return pokemon_number;
-    }
-  }
+    };
+  };
 })
 
 .controller('mapCtrl', function mapCtrl(
@@ -19,7 +19,8 @@ angular.module('pokemonGo')
   $http,
   $timeout,
   NgMap,
-  PUSHER_KEY
+  PUSHER_KEY,
+  lodash
   ) {
   /* Set markers as an object to use .push() method */
   $scope.markers = [];
@@ -33,9 +34,20 @@ angular.module('pokemonGo')
   var spawnPokemonMapDB = function() {
     $http.get('/api/wave').
     success(function(data) {
+      /* Add Pokémons (Not Duplicate) */
       angular.forEach(data, function(marker) {
-        if ($scope.markers.indexOf(marker) == -1) {
+        var found = lodash.find($scope.markers, marker);
+        if (!found) {
           $scope.markers.push(marker);
+        };
+      });
+
+      /* Look for the Expired Pokémons */
+      angular.forEach($scope.markers, function(marker) {
+        var found = lodash.find(data, { '_id': marker._id });
+        if (!found) {
+          var expiredPokemonIndex = lodash.findIndex($scope.markers, { '_id': marker._id });
+          $scope.markers.splice(expiredPokemonIndex, 1);
         };
       });
     });
@@ -43,6 +55,11 @@ angular.module('pokemonGo')
 
   /* First Pokémon Spawn */
   spawnPokemonMapDB();
+
+  /* Caught Pokemon Function */
+  $scope.caughtPokemon = function(pokemonId) {
+    console.log(pokemonId);
+  };
 
   /* Display Pokémon Info Window */
   $scope.displayPokemonInfo = function(e, marker) {
@@ -61,7 +78,6 @@ angular.module('pokemonGo')
   /* Listen to the channel and retrieve an action */
   var pokemonName;
   map.bind('spawn', function(pokemon) {
-    //spawnPokemonMap(pokemon);
     spawnPokemonMapDB();
   });
 });

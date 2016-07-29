@@ -7,7 +7,7 @@ var WaveSchema = new Schema({
   coords: { type: Object },
   position: { type: Array },
   icon: { type: String },
-  createdAt: { type: Date, required: true, default: Date.now, expires: 300 }
+  createdAt: { type: Date, required: true, default: Date.now, expires: 120 }
 });
 
 module.exports = mongoose.model('Wave', WaveSchema);

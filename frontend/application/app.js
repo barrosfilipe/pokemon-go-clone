@@ -2,7 +2,8 @@
 angular.module('pokemonGo', [
   'ui.router',
   'pusher-angular',
-  'ngMap'
+  'ngMap',
+  'ngLodash'
 ])
 
 /* Pusher App Key */

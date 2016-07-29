@@ -45,7 +45,7 @@ function spawnPokemon() {
 
   /* Save to MongoDB */
   var wave = new Wave();
-  wave.id = 'markerdb' + Date.now();
+  wave.id = 'marker' + Date.now();
   wave.pokemonId = pokemonId;
   wave.coords = [{
     latitude: spawnLatitude,
@@ -68,7 +68,7 @@ function spawnPokemon() {
 }
 
 setInterval(function() { 
-  //spawnPokemon();
+  spawnPokemon();
 }, 10000);
 
 /* Starting App on http://localhost:3000 */

@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  font-family: 'Titillium Web', sans-serif;
 }
 
 ng-map {
@@ -21,5 +22,14 @@ ng-map {
 .caught {
   cursor: pointer;
   border: 0; 
+  outline: 0;
   background: transparent
+}
+
+.caught_text {
+  color: #00aeff;
+  font-family: 'Titillium Web', sans-serif;
+  font-weight: 600;
+  font-style: italic;
+  font-size: 16px;
 }

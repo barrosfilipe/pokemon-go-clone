@@ -10,16 +10,16 @@
             <img class="pokemonlabel" ng-src="http://sprites.pokecheck.org/i/{{pokemonMarker|pokemonNumber}}.gif">
           </p>
           <p>
-            <button class="caught">
+            <button class="caught" ng-click="caughtPokemon(pokemonMarker)">
               <img ng-src="assets/img/caught.png" width="20"><br />
-              Caught!
+              <span class="caught_text">Caught !</span>
             </button>
           </p>
-       </div>
-     </center>
-   </info-window>
-   
-   <!-- Pokémon Marker on the Map (MongoDB) -->
-   <marker id="{{marker.id}}" ng-repeat="marker in markers" icon="{{marker.icon}}" position="{{marker.position}}" on-click="displayPokemonInfo(marker)"></marker>
- </ng-map>
+        </div>
+      </center>
+    </info-window>
+
+    <!-- Pokémon Marker on the Map (MongoDB) -->
+    <marker id="{{marker.id}}" ng-repeat="marker in markers" icon="{{marker.icon}}" position="{{marker.position}}" on-click="displayPokemonInfo(marker)"></marker>
+  </ng-map>
 </div>
