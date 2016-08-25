@@ -33,7 +33,7 @@ var pusher = new Pusher({
 });
 
 /* Spawn a new Pokémon to Pusher API */
-function spawnPokemon() {
+var spawnPokemon = function() {
   var pokemonId = Math.floor(Math.random()*151) + 1;
 
   /* Random Coordinates */
