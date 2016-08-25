@@ -33,8 +33,8 @@ var pusher = new Pusher({
 });
 
 /* Spawn a new Pokémon to Pusher API */
-var spawnPokemon = function() {
-  var pokemonId = Math.floor(Math.random()*151) + 1;
+var spawnPokemon = function(generatedPokemonId) {
+  var pokemonId = generatedPokemonId;
   var pokemonName = pokemonGetInfo.getName(pokemonId);
 
   /* Random Coordinates */
@@ -73,8 +73,9 @@ var spawnPokemon = function() {
   console.log('=> ' +spawnLongitude);
 }
 
-setInterval(function() { 
-  spawnPokemon();
+/* 10 seconds interal to a new Pokémon be spawned */
+setInterval(function() {
+  spawnPokemon(Math.floor(Math.random()*151) + 1);
 }, 10000);
 
 /* Starting App on http://localhost:3000 */

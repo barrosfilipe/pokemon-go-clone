@@ -5,7 +5,8 @@ angular.module('pokemonGo')
     return input
       .replace("♂", "m")
       .replace("♀", "f")
-      .replace("’", "");
+      .replace("’", "")
+      .replace(". ", "-");
   };
 })
 
