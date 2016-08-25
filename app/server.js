@@ -35,6 +35,7 @@ var pusher = new Pusher({
 /* Spawn a new Pokémon to Pusher API */
 var spawnPokemon = function() {
   var pokemonId = Math.floor(Math.random()*151) + 1;
+  var pokemonName = pokemonGetInfo.getName(pokemonId);
 
   /* Random Coordinates */
   var spawnLatitude = '-22.90' + Math.floor(Math.random() * 999999);
@@ -42,6 +43,7 @@ var spawnPokemon = function() {
 
   pusher.trigger('map', 'spawn', {
     'id': pokemonId,
+    'name': pokemonName,
     'latitude': spawnLatitude,
     'longitude': spawnLongitude
   });
@@ -50,7 +52,7 @@ var spawnPokemon = function() {
   var wave = new Wave();
   wave.id = 'marker' + Date.now();
   wave.pokemonId = pokemonId;
-  wave.pokemonName = pokemonGetInfo.getName(pokemonId);
+  wave.pokemonName = pokemonName;
   wave.coords = [{
     latitude: spawnLatitude,
     longitude: spawnLongitude
