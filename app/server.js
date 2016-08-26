@@ -10,7 +10,7 @@ const pokemonGetInfo = require('pokemon');
 
 /* MongoDB Config */
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/waves');
+mongoose.connect('mongodb://localhost:27017/wave');
 
 /* Models */
 var Wave = require('./models/waveModel');

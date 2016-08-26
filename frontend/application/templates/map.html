@@ -6,14 +6,16 @@
     <info-window id="pokemonInfo">
       <div class="pokemonview" ng-non-bindable>
         <center>
+          <div id="{{pokemonHash}}">
+            <p>
+              <img ng-src="http://www.pokestadium.com/sprites/xy/{{pokemonName | lowercase | pokemonReplace}}.gif">
+            </p>
+            <span class="pokemonName">{{pokemonName}}</span>
+          </div>
           <p>
-            <img ng-src="http://www.pokestadium.com/sprites/xy/{{pokemonName | lowercase | pokemonReplace}}.gif">
-          </p>
-          <span class="pokemonName">{{pokemonName}}</span>
-          <p>
-            <button class="catch" ng-click="catchPokemon(pokemonMarker)">
-              <img ng-src="assets/img/pokeball.png" width="20"><br />
-              <span class="catch_text">Catch !</span>
+            <button id="catchBtn{{pokemonHash}}" class="catch" ng-click="catchPokemon(infoMarker, pokemonHash)">
+              <img id="pokeball{{pokemonHash}}" ng-src="assets/img/pokeball.png" width="20"><br />
+              <span id="btnText{{pokemonHash}}" class="catch_text">Catch !</span>
             </button>
           </p>
         </div>
