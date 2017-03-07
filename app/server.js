@@ -58,7 +58,7 @@ var spawnPokemon = function(generatedPokemonId) {
     longitude: spawnLongitude
   }];
   wave.position = [spawnLatitude, spawnLongitude];
-  wave.icon = 'http://sprites.pokecheck.org/icon/'+pokemonId+'.png';
+  wave.icon = '/pokemon/icons/'+pokemonId+'.png';
 
   wave.save(function(err) {
     if (!err) { 

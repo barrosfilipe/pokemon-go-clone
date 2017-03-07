@@ -29,6 +29,19 @@ angular.module('pokemonGo')
     $scope.map = map;
   });
 
+  var deSpawnPokemonMapDB = function() {
+    $http.get('/api/wave')
+    .success(function(data) {
+      angular.forEach($scope.markers, function(marker) {
+        var found = lodash.find(data, { '_id': marker._id });
+        if (!found) {
+          var expiredPokemonIndex = lodash.findIndex($scope.markers, { '_id': marker._id });
+          $scope.markers.splice(expiredPokemonIndex, 1);
+        };
+      });
+    });
+  };
+
   /* Spanw Pokémons on the Map (MongoDB) */
   var spawnPokemonMapDB = function() {
     $http.get('/api/wave')
@@ -42,13 +55,7 @@ angular.module('pokemonGo')
       });
 
       /* Look for the Expired Pokémons */
-      angular.forEach($scope.markers, function(marker) {
-        var found = lodash.find(data, { '_id': marker._id });
-        if (!found) {
-          var expiredPokemonIndex = lodash.findIndex($scope.markers, { '_id': marker._id });
-          $scope.markers.splice(expiredPokemonIndex, 1);
-        };
-      });
+      deSpawnPokemonMapDB();
     });
   };
 
@@ -141,5 +148,9 @@ angular.module('pokemonGo')
   var pokemonName;
   map.bind('spawn', function(pokemon) {
     spawnPokemonMapDB();
+  });
+
+  map.bind('despawn', function(pokemon) {
+    deSpawnPokemonMapDB();
   });
 });
